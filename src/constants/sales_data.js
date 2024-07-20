@@ -1,4 +1,4 @@
-{
+export  const sales_data = {
     "sales": [
         {
             "date": "2024-01-01",
