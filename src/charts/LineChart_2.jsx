@@ -21,49 +21,45 @@ ChartJS.register(
 );
 
 const LineChart_2 = props => {
+  const newLabels = ShipManagement.shipOperations.map(
+    ShipManagement => ShipManagement.month
+  );
+  const fuelEfficiencyData = ShipManagement.shipOperations.map(shipData => {
+    return {
+      x: shipData.distanceTravelled,
+      y: parseFloat(
+        (shipData.distanceTravelled / shipData.fuelConsumption).toFixed(2)
+      ),
+      distanceTravelled: shipData.distanceTravelled,
+      fuelConsumption: shipData.fuelConsumption,
+      incidents: shipData.incidents,
+      cargoWeight: shipData.cargoWeight,
+    };
+  });
   const data = {
+    labels: newLabels,
     datasets: [
       {
         label: "船隻燃油效率",
-        data: [
-          {
-            x: 7500,
-            y: 500,
-            incidents: 2,
-            cargoWeight: 2500,
-            month: "January",
-          },
-          {
-            x: 7800,
-            y: 480,
-            incidents: 1,
-            cargoWeight: 2000,
-            month: "February",
-          },
-          { x: 8000, y: 550, incidents: 3, cargoWeight: 3000, month: "March" },
-          { x: 8100, y: 530, incidents: 0, cargoWeight: 3000, month: "April" },
-          { x: 8050, y: 540, incidents: 2, cargoWeight: 3500, month: "May" },
-          { x: 8200, y: 560, incidents: 2, cargoWeight: 4000, month: "June" },
-        ],
+        data: fuelEfficiencyData,
         backgroundColor: "rgba(30, 0, 255, 0.6)",
         borderColor: "#0000ff",
         pointRadius: 10,
       },
     ],
   };
-
   const options = {
     scales: {
       x: {
         title: {
           display: true,
-          text: "航行英里數",
+          text: "月份（從 1 月到 6 月）",
         },
       },
       y: {
         title: {
           display: true,
-          text: "燃油消耗 (加侖)",
+          text: "燃油效率（每單位燃油消耗所行駛的距離）",
         },
       },
     },
@@ -72,7 +68,7 @@ const LineChart_2 = props => {
         callbacks: {
           label: function (context) {
             const item = context.raw;
-            return `${item.month}: 燃油消耗 ${item.y} 加侖, 航行 ${item.x} 英里, 事件 ${item.incidents}, 貨物重量 ${item.cargoWeight} 噸`;
+            return `燃油效率 ${item.y}，燃油消耗 ${item.fuelConsumption} 加侖，航行 ${item.distanceTravelled} 英里，事件 ${item.incidents}，貨物重量 ${item.cargoWeight} 噸`;
           },
         },
       },

@@ -64,14 +64,7 @@ const LineChart = props => {
         tension: 0.4,
       },
     },
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
+    
   };
 
   return (

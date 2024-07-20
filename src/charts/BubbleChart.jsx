@@ -56,26 +56,7 @@ const BubbleChart = props => {
       },
     ],
   };
-  const options = {
-    plugins: {
-      title: {
-        text: "水啦",
-      },
-    },
-    elements: {
-      line: {
-        tension: 0.4,
-      },
-    },
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
-  };
+  const options = {};
   return (
     <div className={props.className}>
       <Bubble data={data} options={options} />
